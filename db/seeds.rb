@@ -26,5 +26,8 @@ Order.destroy_all
   )
 end
 
+User.create({ email: 'john.doe@example.com',
+              password: 'password123' })
+
 p "Created #{User.count} users"
 p "Created #{Order.count} requests"
