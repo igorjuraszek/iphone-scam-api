@@ -11,21 +11,6 @@
 User.destroy_all
 Order.destroy_all
 
-5.times do
-  Order.create(
-    name: Faker::Name.first_name,
-    surname: Faker::Name.last_name,
-    schedule: Faker::Time.between(from: DateTime.now - 1, to: DateTime.now),
-    city: Faker::Address.city,
-    street: Faker::Address.street_name,
-    number: Faker::Address.building_number,
-    zip_code: Faker::Address.zip_code,
-    country: Faker::Address.country,
-    email: Faker::Internet.email,
-    phone_number: Faker::PhoneNumber.phone_number
-  )
-end
-
 User.create({ email: 'john.doe@example.com',
               password: 'password123' })
 
