@@ -14,7 +14,6 @@ ENV RAILS_ENV="production" \
     BUNDLE_WITHOUT="development" \
     SECRET_KEY_BASE="ce09474bd5f6095e57b5aba40d752339b6726afb5f2a0713c37a21637114c91e1e4de38b4aaa9261c2fe38bd32cdcce5f87e2352e02b1a6efc648e641f448292"
 
-
 # Throw-away build stage to reduce size of final image
 FROM base as build
 
@@ -30,10 +29,8 @@ RUN bundle install && \
 
 # Copy application code
 COPY . .
-
 # Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile app/ lib/
-
 
 # Final stage for app image
 FROM base
@@ -46,11 +43,6 @@ RUN apt-get update -qq && \
 # Copy built artifacts: gems, application
 COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build /rails /rails
-
-# Run and own only the runtime files as a non-root user for security
-RUN useradd rails --create-home --shell /bin/bash && \
-    chown -R rails:rails db log storage tmp
-USER rails:rails
 
 # Entrypoint prepares the database.
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
