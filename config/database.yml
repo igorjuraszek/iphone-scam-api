@@ -84,5 +84,5 @@ test:
 production:
   <<: *default
   database: iphone_scam_api_production
-  username: iphone_scam_api
-  password: <%= ENV["IPHONE_SCAM_API_DATABASE_PASSWORD"] %>
+  username: username
+  password: password
